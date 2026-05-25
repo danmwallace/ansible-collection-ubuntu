@@ -1,0 +1,25 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Ansible
+.ansible/
+*.retry
+.vault_pass
+collections/
+
+# Claude Code (local workspace)
+.claude/
+
+# Build artifacts
+*.tar.gz
+
+# Editors
+.vscode/
+.idea/
+
+# Inventory data does not belong in a collection
+group_vars/
+host_vars/
+inventory

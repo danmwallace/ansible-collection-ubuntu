@@ -1,0 +1,14 @@
+---
+profile: production
+exclude_paths:
+  - .cache/
+  - .github/
+  - molecule/*/files/
+  - roles/*/files/
+use_default_rules: true
+enable_list:
+  - args
+  - no-log-password
+  - no-same-owner
+warn_list:
+  - experimental

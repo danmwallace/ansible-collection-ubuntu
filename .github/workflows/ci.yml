@@ -25,3 +25,21 @@ jobs:
       - name: Build collection
         working-directory: ansible_collections/danmwallace/ubuntu
         run: ansible-galaxy collection build --output-path dist/
+
+  tag-check:
+    name: release-tag audit
+    runs-on: ubuntu-latest
+    steps:
+      # Needs full history + tags so the audit can map each galaxy.yml version
+      # to its bump commit and compare against existing vX.Y.Z tags.
+      - name: Check out with full history and tags
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Audit git tags against released versions
+        # Reports missing tags (non-fatal); fails only if a vX.Y.Z tag points at
+        # a commit that never carried that version. See the galaxy-tag-sync skill.
+        run: python3 .github/scripts/sync_tags.py --all-versions .
